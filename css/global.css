@@ -1,0 +1,47 @@
+header {
+     background-color: #d4aeb5;
+     text-align: center;
+     padding: 2rem;
+}
+
+a {
+     text-decoration: none;
+     color: rgb(193, 109, 144);
+}
+
+a:hover {
+     color: rgb(193, 109, 144);
+     text-decoration: underline;
+}
+
+nav a {
+     text-decoration: none;
+     color: black;
+     margin-right: 1rem;
+}
+
+nav a.active {
+     font-weight: bold;
+     text-decoration: underline;
+}
+
+body {
+     font-family:Georgia, 'Times New Roman', Times, serif;
+     line-height: 1.5;
+     background-color: rgb(245, 220, 233);
+}
+article {
+     padding: 1rem;
+     border: 1px solid;
+     margin-bottom: 1rem;
+     border-radius: 10px;
+}
+
+article h2 {
+     margin: 0;
+}
+
+article a {
+    text-decoration: none;
+    color: pink;
+}
