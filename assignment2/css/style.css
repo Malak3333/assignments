@@ -1,0 +1,52 @@
+#products-container {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+     gap: 25px;
+     padding: 25px;
+}
+
+.product-card {
+     border: 2px solid #ccc;
+     padding: 15px;
+     text-align: center;
+     border-radius: 10px;
+     transition: transform 0.3s;
+}
+
+.product-card img {
+     height: auto;
+     width: 100%;
+     border-radius: 10px;
+}
+
+.product-card button {
+     padding: 10px 15px;
+     margin-top: 10px;
+     background-color: darkpink; 
+     color: gray;
+     border: none;
+     font-weight: bold;
+     cursor: pointer;
+
+}
+
+.product-card button:hover {
+     background-color: pink;
+
+}
+
+#cart {
+     margin: 15px;
+     border: 2px solid #ccc;
+     padding: 15px;
+     background-color: rgb(214, 175, 204);
+}
+
+#cart h2 {
+     margin-top: 5px;
+}
+
+#cart-total { 
+     margin-top: 15px;
+     font-weight: bold;
+}

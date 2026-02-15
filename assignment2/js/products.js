@@ -60,7 +60,7 @@ export const products = [
           name: "Oranga marigolds", 
           description: "Unika och färgglada blommor som sprider energi och glädje. Vill du ha en livlig och färgglad atmosfär, är dessa perfekta valet.", 
           price: "330 kr", 
-          images: "orangeMarigold.jpg", 
+          image: "orangeMarigold.jpg", 
           category: "Blommor"
      }
 ];
