@@ -15,17 +15,15 @@ export function loadCart() {
      if (data) {
           let parsed = JSON.parse(data);
           cart.length = 0;
-          for (let i = 0; i < parsed.length; i++) {
-               cart.push(parsed[i]);
-          }
+          parsed.forEach(item => cart.push(item));
      }
 
 }
 
 export function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
-          }
-          saveCart();
+    saveCart();
+}
 
 export function clearCart() {
      cart = [];

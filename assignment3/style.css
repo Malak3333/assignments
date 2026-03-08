@@ -1,0 +1,49 @@
+body {
+     font-family: Georgia, 'Times New Roman', Times, serif;
+     background-color: rgb(245, 220, 233);
+     margin: 0;
+     padding: 5px;
+}
+
+header {
+     text-align: center;
+     padding: 20px;
+     color: rgb(50, 46, 47);
+     background-color: rgb(193, 159, 164);
+}
+
+nav {
+   color: pink;
+   padding: 10px 15px;
+   text-decoration: none;
+}
+
+nav a {
+     font-weight: bold;
+     color: rgb(129, 95, 101);
+}
+
+.round {
+     border: 3px solid rgb(161, 132, 137);
+     margin-bottom: 20px;
+     border-radius: 15px;
+     background-color: rgb(223, 199, 214)
+}
+
+.match {
+     justify-content: space-between;
+     margin: 5px;
+}
+
+.match div {
+     flex: 3;
+     text-align: left;
+}
+
+button#restart {
+     background-color: rgb(211, 197, 199);
+}
+
+button#restart:hover {
+     background-color: rgb(217, 177, 183);
+}
