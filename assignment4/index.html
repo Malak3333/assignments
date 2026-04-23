@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="sv"></html>
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Spökhusbyrån AB // Hitta ditt hemsökta boende</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <header>
+          <nav>
+               <a href="#" class="logo">Spökhusbyrån AB</a>
+               <div class="nav-links">
+                    <a href="index.html">Hem</a>
+                    <a href="house.html">Exempel hus</a>
+               </div>
+          </nav>
+     </header>
+
+     <div class="container">
+          <section class="hero">
+               <h1>Välkommen till Spökhusbyrån</h1>
+               <p>Hitta ditt hemsökta boende för din semester!!!</p>
+          </section>
+
+          <div id="error-message" style="display: none;"></div>
+     </div>
+
+     <section class="filters"></section>
+     <h2>Filtrera spökhus</h2>
+     <form id="filter-form" class="filter-row">
+          <div class="filter-group">
+               <label for="max-price">Maxpris per natt</label>
+               <input type="range" id="max-price" min="0" max="3000" value="3000">
+               <span id="max-price-value">3000 kr</span>
+          </div>
+
+         <div class="filter-group">
+          <label for="min-scare">Minsta skräcknivå</label>
+          <input type="range" id="min-scare" min="1" max="5" value="1">
+               <span id="min-scare-value">Alla nivåer</span>
+         </div> 
+
+         <div class="filter-group">
+          <label for="ghost-type">Spöktyp</label>
+          <select id="ghost-type">
+               <option value="">Alla typer</option>"
+          </select>
+         </div>
+
+         <div class="filter-group">
+          <label>
+               <input type="checkbox" id="wifi">Kräver WiFi
+          </label>
+         </div>
+     </form>
+     </section>
+
+     <section class="houses-grid" id="houses-grid">
+          <div>Laddar spökhus...</div>
+     </section>
+
+     <div id="no-results" class="no-results" style="display: none;">
+          <h2>Inga spökhus hittades</h2>
+          <p>Testa att ändra dina filter eller ta bort några krav.</p>
+     </div>
+
+     <footer>
+          <p>&copy; 2026 Spökhusbyrån AB. Alla spöken reserverade.</p>
+     </footer>
+
+     <script type="module" src="js/index.js"></script>
+</body>
+</html>
