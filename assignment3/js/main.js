@@ -1,11 +1,13 @@
 import { Match } from "./Match.js";
 
 let currentMatches = [];
-let tournamentDiv = document.getElementById("tournament");
+let currentMatchIndex = 0;
+let tournamentFinished = false;
 
+
+let tournamentDiv = document.getElementById("tournament");
 let playBtn = document.getElementById("play-round");
 let restartBtn = document.getElementById("restart");
-let tournamentFinished = false;
 
 async function loadContestants() {
      let response = await fetch("./contestants.json");
@@ -31,36 +33,25 @@ function createQuarterFinals(contestants) {
 
      for (let i = 0; i < contestants.length; i += 2) {
           let match = new Match(contestants[i], contestants[i + 1]);
-
-          let matchElement = match.createElement();
-          roundDiv.appendChild(matchElement);
-
-          match.compete();
+          
+          roundDiv.appendChild(match.createElement());
           matches.push(match);
 
      }
      currentMatches = matches;
-     
+     currentMatchIndex = 0;
 }
 
 function createNextRound(prevMatches) {
-     let winners = [];
-     let roundName = "";
-
-     if (prevMatches.length === 4) roundName = "Semifinal";
-     else if (prevMatches.length === 2) roundName = "Final";
-
-     for (let i = 0; i < prevMatches.length; i++) {
-          winners.push(prevMatches[i].winner);
-     }
-
-     if (winners.length < 2) return;
+     let winners = prevMatches.map(m => m.winner).filter(Boolean);
+     if (winners.length < 2) return null;
 
      let roundDiv = document.createElement("div");
      roundDiv.classList.add("round");
 
      let h2 = document.createElement("h2");
-     h2.textContent = roundName;
+     h2.textContent = winners.length === 4 ? "Semifinal" : "Final";
+
      roundDiv.appendChild(h2);
      tournamentDiv.appendChild(roundDiv);
 
@@ -69,36 +60,40 @@ function createNextRound(prevMatches) {
      for (let i = 0; i < winners.length; i += 2) {
           let match = new Match(winners[i], winners[i + 1]);
           let matchElement = match.createElement();
-          roundDiv.appendChild(matchElement);
-
-          match.compete();
+          
+          roundDiv.appendChild(match.createElement());
           matches.push(match);
      }
 
-     if (winners.length > 1) {
-          let nextRoundName = "";
-          
-          if (winners.length === 4) nextRoundName = "Semifinal";
-          else if (winners.length === 2) nextRoundName = "Final";
-          
-          return matches; 
-     }
+     return matches;
 }
+
+playBtn.addEventListener("click", function () {
+     if (tournamentFinished) return;
+
+     let match = currentMatches[currentMatchIndex];
+     if (!match) return;
+
+     match.compete();
+     currentMatchIndex++;
+
+     if (currentMatchIndex >= currentMatches.length) {
+          let next = createNextRound(currentMatches);
+
+          if (!next) {
+               tournamentFinished = true;
+               return;
+          }
+          
+          currentMatches = next;
+          currentMatchIndex = 0;
+     }
+
+});
 
 restartBtn.addEventListener("click", function () {
      tournamentDiv.innerHTML = "";
      tournamentFinished = false;
      loadContestants();
-});
-
-playBtn.addEventListener("click", function () {
-     if (tournamentFinished) return;
-    
-     let next = createNextRound(currentMatches);
-     currentMatches = next;
-
-     if (!next) {
-          tournamentFinished = true;
-     }
 
 });
