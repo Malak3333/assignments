@@ -1,6 +1,10 @@
 import { Match } from "./Match.js";
 
+let currentMatches = [];
 let tournamentDiv = document.getElementById("tournament");
+
+let playBtn = document.getElementById("play-round");
+let restartBtn = document.getElementById("restart");
 
 async function loadContestants() {
      let response = await fetch("./contestants.json");
@@ -79,10 +83,12 @@ function createNextRound(prevMatches) {
      }
 }
 
-let restartBtn = document.getElementById("restart");
-
 restartBtn.addEventListener("click", function () {
      tournamentDiv.innerHTML = "";
 
      loadContestants();
-})
+
+playBtn.addEventListener("click", function () {
+     playRound(currentMatches);
+});
+});
