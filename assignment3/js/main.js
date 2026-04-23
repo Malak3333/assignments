@@ -5,6 +5,7 @@ let tournamentDiv = document.getElementById("tournament");
 
 let playBtn = document.getElementById("play-round");
 let restartBtn = document.getElementById("restart");
+let tournamentFinished = false;
 
 async function loadContestants() {
      let response = await fetch("./contestants.json");
@@ -36,9 +37,10 @@ function createQuarterFinals(contestants) {
 
           match.compete();
           matches.push(match);
-     }
 
-     createNextRound(matches);
+     }
+     currentMatches = matches;
+     
 }
 
 function createNextRound(prevMatches) {
@@ -79,16 +81,24 @@ function createNextRound(prevMatches) {
           if (winners.length === 4) nextRoundName = "Semifinal";
           else if (winners.length === 2) nextRoundName = "Final";
           
-          createNextRound(matches);  
+          return matches; 
      }
 }
 
 restartBtn.addEventListener("click", function () {
      tournamentDiv.innerHTML = "";
-
+     tournamentFinished = false;
      loadContestants();
+});
 
 playBtn.addEventListener("click", function () {
-     playRound(currentMatches);
-});
+     if (tournamentFinished) return;
+    
+     let next = createNextRound(currentMatches);
+     currentMatches = next;
+
+     if (!next) {
+          tournamentFinished = true;
+     }
+
 });
