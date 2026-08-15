@@ -20,7 +20,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           if (!currentHouse) {
                showError("Huset hittades inte.");
+               return;
           }
+
+          currentBooking = new Booking(currentHouse);
+          renderHouseDetails(currentHouse);
+          setupBookingEvents();
+
      } catch (error) {
           showError("Ett fel inträffade. Försök igen senare.");
      }
@@ -29,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function renderHouseDetails(house) {
      const container = document.getElementById('house-details');
      const scareText = getScareLevelText(house.scareLevel);
-     const scareClass = getScareLevelCLass(house.scareLevel);
+     const scareClass = getScareLevelClass(house.scareLevel);
 
      container.innerHTML = `
      <div class="house-detail-card">
@@ -58,7 +64,7 @@ function setupBookingEvents() {
      const checkOutInput = document.getElementById('check-out');
      const guestsInput = document.getElementById('guests');
      const extrasCheckboxes = document.querySelectorAll('input[name="extras"]');
-     const form = document.getElemenrById('booking-form');
+     const form = document.getElementById('booking-form');
 
      guestsInput.max = currentHouse.maxGuests;
 
@@ -76,8 +82,11 @@ function setupBookingEvents() {
           currentBooking.extras = selectedExtras;
 
           document.getElementById('summary-nights').textContent = currentBooking.getNights();
+
           document.getElementById('summary-base-price').textContent = formatPrice(currentBooking.getBasePrice());
-          document.getElementById('summary-extras-price').textContent = formatPrice(currentBooking.getExtras().join(', '));
+
+          document.getElementById('summary-extras-price').textContent = formatPrice(currentBooking.getExtrasPrice().join(', '));
+
           document.getElementById('summary-total-price').textContent = formatPrice(currentBooking.getTotalPrice());
 
           const bookBtn = document.getElementById('book-btn');
@@ -87,8 +96,10 @@ function setupBookingEvents() {
      checkInInput.addEventListener('change', updateBookingState);
      checkOutInput.addEventListener('change', updateBookingState);
      guestsInput.addEventListener('change', updateBookingState);
+     
      extrasCheckboxes.forEach(cb => {
           cb.addEventListener('change', updateBookingState);
+     });
 
      form.addEventListener('submit', (e) => {
           e.preventDefault();
@@ -104,8 +115,8 @@ function setupBookingEvents() {
                updateBookingState();
           }
           });
-     });
-}
+     };
+
 
 function showError(message) {
      const detailsDiv = document.getElementById('house-details');
