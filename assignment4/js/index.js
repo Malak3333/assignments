@@ -15,12 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function hämtaHus() {
-     fetchHouses(`./data/houses.json`)
+     fetchHouses(`houses.json`)
      .then(response => response.json())
      .then(hus => {
           allaHus = hus;
           filtreradeHus = hus;
-          visaHus(hus);
           visaHus(hus);
           fyllSpöktyper(hus);
      })
@@ -36,8 +35,10 @@ function skapaHusKort(hus){
      return `
           <div class="house-card">
                <h2>${hus.name}</h2>
-               <p>Price: ${formatPrice(hus.price)}</p>
-               <p class="${skräckKlass}">${skräckText}</p>
+               <p><strong>Plats:</strong> ${hus.location}</p>
+               <p><strong>Price:</strong> ${formatPrice(hus.price)}</p>
+               <p class="${skräckKlass}"><strong>Skräcknivå:</strong> ${skräckText}</p>
+               <a href="house.html?id=${hus.id}" class="btn">Läs mer</a>
           </div>
      `;
 
@@ -57,23 +58,26 @@ function visaHus(husLista) {
 }
 
 function fyllSpökTyper(hus) {
-     const allaTyper =[];
+     const allaTyper = [];
 
-     hus.forEach(hus => {
-          hus.ghostTypes.forEach(typ => {
+     hus.forEach(h => {
+          h.ghostTypes.forEach(typ => {
                if (!allaTyper.includes(typ)) {
                     allaTyper.push(typ);
                }
           });
      });
-}
+};
 
 const select = document.getElementById('ghost-type');
 let html = '<option value="">Alla typer</option>';
 allaTyper.forEach(typ => {
      html += `<option value="${typ}">${typ}</option>`;
+
  });
+
 select.innerHTML = html;
+
 
 function sättUppFilter() {
 
@@ -94,10 +98,10 @@ function filtrera() {
      let resultat = [...allaHus];
 
      const maxPris = Number(document.getElementById('max-price').value);
-     resultat = resultat.filter(hus=> hus.pricePerNight < maxPris);
+     resultat = resultat.filter(hus => hus.pricePerNight <= maxPris);
 
      const minSkräck = Number(document.getElementById('min-scare').value);
-     resultat = resultat.filter(hus=> hus.scareLevel < minSkräck);
+     resultat = resultat.filter(hus => hus.scareLevel >= minSkräck);
 
      const spökTyp = document.getElementById('ghost-type').value;
      if (spökTyp) {
@@ -105,6 +109,7 @@ function filtrera() {
                return hus.ghostTypes.includes(spökTyp);
           });
      };
+};
 
 const villHaWifi = document.getElementById('wifi').checked;
 if (villHaWifi) {
