@@ -1,4 +1,4 @@
-const assignments = [
+export const assignments = [
     {
         id: "home",
         title: "Startsida",
