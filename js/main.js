@@ -1,3 +1,4 @@
+import { assignments } from "./assignments.js";
 const nav = document.getElementById("main-nav");
 
 const currentPath = window.location.pathname;
