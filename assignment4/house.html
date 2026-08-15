@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sv">
+     <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Spökhusbyrån AB - Detaljer</title>
+          <link rel="stylesheet" href="css/style.css">
+     </head>
+     <body>
+          <header>
+               <nav>
+                    <a href="index.html" class="logo">Spökhusbyrån AB</a>
+                    <div class="nav-links">
+                         <a href="index.html">Hem</a>
+                    </div>
+               </nav>
+          </header>
+     </body>
+
+     <main class="container">
+          <div id="error-message"></div>
+
+          <section id="house-details" class="house-detail-container">
+               <p>Laddar husinfo...</p>
+          </section>
+
+          <section id="booking-section" class="booking-section">
+               <h2>Boka besök</h2>
+               <form id="booking-form">
+                    <div class="form-group">
+                         <label for="check-in">Incheckning:</label>
+                         <input type="date" id="check-in" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="check-out">Utcheckning:</label>
+                         <input type="date" id="check-out" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="guests">Antal gäster:</label>
+                         <input type="number" id="guests" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                         <label>Tillval:</label>
+                         <label class="checkbox-label"><input type="checkbox" name="extras" value="spökvandring"> Nattlig spökvandring (+300 kr)</label>
+                         <label class="checkbox-label"><input type="checkbox" name="extras" value="frukost"> Frukost (+200 kr)</label>
+                    </div>
+                    <div class="price-summary">
+                         <p>Antal nätter: <span id="summary-nights">0</span></p>
+                         <p>Grundpris: <span id="summary-base-price">0 kr</span> </p>
+                         <p>Tillval: <span id="summary-extras-price">0 kr</span></p>
+                         <p>Totalt pris: <span id="summary-total-price">0 kr</span></p>
+                    </div>
+
+                    <button type="submit" id="book-btn" class="confirmation-message">Boka nu</button>
+               </form>
+          </section>
+     </main>
+
+     <footer>
+          <p>© 2023 Spökhusbyrån AB. Alla rättigheter förbehållna.</p>
+     </footer>
+
+     <script type="module" src="js/house-details.js"></script>
+
+</body>
+</html>
