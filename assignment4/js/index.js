@@ -2,7 +2,8 @@ import {
      fetchHouses,
      getScareLevelText,
      getScareLevelClass,
-     formatPrice
+     formatPrice,
+     getAllGhostTypes 
 } from './utils.js';
 
 let allaHus = [];
@@ -135,3 +136,4 @@ container.innerHTML = `
 </div>
 `;
 }
+

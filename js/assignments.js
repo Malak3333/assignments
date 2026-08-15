@@ -4,7 +4,6 @@ export const assignments = [
         title: "Startsida",
         link: "index.html",
         description: "Start/landningssida för Webbteknik 3 kursens inlämningsupggifter."
-
      },
   
      {
