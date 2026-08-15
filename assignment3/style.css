@@ -12,6 +12,16 @@ header {
      background-color: rgb(193, 159, 164);
 }
 
+.nav-links {
+     display: flex;
+     gap: 1.5rem;
+     list-style: none;
+}
+
+nav a {
+     margin-right: 1.5rem;
+}
+
 nav {
    color: pink;
    padding: 10px 15px;
