@@ -53,3 +53,75 @@ function renderHouseDetails(house) {
   `;
 }
 
+function setupBookingEvents() {
+     const checkInInput = document.getElementById('check-in');
+     const checkOutInput = document.getElementById('check-out');
+     const guestsInput = document.getElementById('guests');
+     const extrasCheckboxes = document.querySelectorAll('input[name="extras"]');
+     const form = document.getElemenrById('booking-form');
+
+     guestsInput.max = currentHouse.maxGuests;
+
+     function updateBookingState() {
+          currentBooking.checkIn = checkInInput.value;
+          currentBooking.checkOut = checkOutInput.value;
+          currentBooking.guests = Number(guestsInput.value);
+
+          const selectedExtras = [];
+          extrasCheckboxes.forEach(cb => {
+               if (cb.checked) {
+                    selectedExtras.push(cb.value);
+               }
+          });
+          currentBooking.extras = selectedExtras;
+
+          document.getElementById('summary-nights').textContent = currentBooking.getNights();
+          document.getElementById('summary-base-price').textContent = formatPrice(currentBooking.getBasePrice());
+          document.getElementById('summary-extras-price').textContent = formatPrice(currentBooking.getExtras().join(', '));
+          document.getElementById('summary-total-price').textContent = formatPrice(currentBooking.getTotalPrice());
+
+          const bookBtn = document.getElementById('book-btn');
+          bookBtn.disabled = !currentBooking.isValid();
+     }
+
+     checkInInput.addEventListener('change', updateBookingState);
+     checkOutInput.addEventListener('change', updateBookingState);
+     guestsInput.addEventListener('change', updateBookingState);
+     extrasCheckboxes.forEach(cb => {
+          cb.addEventListener('change', updateBookingState);
+
+     form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (currentBooking.isValid()) {
+               const confirmation = document.getElementById('booking-confirmation');
+               confirmation.innerHTML = `
+               <div class="success-box">
+               Tack för din bokning av ${currentHouse.name}!<br>
+               Totalt pris: ${formatPrice(currentBooking.getTotalPrice())} för ${currentBooking.getNights()} nätter.
+               </div>
+               `;
+               form.reset();
+               updateBookingState();
+          }
+          });
+     });
+}
+
+function showError(message) {
+     const detailsDiv = document.getElementById('house-details');
+     const bookingSection = document.getElementById('booking-section');
+
+     if (bookingSection) {
+          bookingSection.remove();
+     }
+
+     if (detailsDiv) {
+          detailsDiv.innerHTML = `
+          <div class="error-box">
+          <h2>Ett fel uppstod</h2>
+          <p>${message}</p>
+          <a href="index.html" class="btn">Tillbaka till startsidan</a>
+          </div>
+          `;
+     }
+}
