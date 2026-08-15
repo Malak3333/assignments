@@ -1,9 +1,10 @@
 import {products} from "./products.js";
-import {loadCart, addToCart, cart} from "./cart.js";
+import {loadCart, addToCart, clearCart, cart} from "./cart.js";
 
 loadCart();
 
 const container = document.getElementById("products-container");
+const clearBtn = document.getElementById("clear-cart");
 
 products.forEach(function(product) {
      let div = document.createElement("div");
@@ -60,3 +61,10 @@ function renderCart() {
 }
 
 renderCart();
+
+if (clearBtn) {
+     clearBtn.addEventListener("click", function() {
+          clearCart();
+          renderCart();
+     });
+}
